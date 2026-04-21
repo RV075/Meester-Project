@@ -20,7 +20,7 @@ er gaan ook side quests zijn naast de main quest
 
 We beginnen met weinig en we bouwen steeds meer zodat er niet veel tijd stress is dus we maken eerst 1 wereld en als die pas af is 1 week voor het af moet zijn dan maken de die ene wereld de enige
 
-De game engine wordt = 
+De game engine wordt = Unity
 
 
 # Rollen
