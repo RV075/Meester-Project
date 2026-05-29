@@ -50,13 +50,13 @@ public class Dash : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            DataToLoad.instance.dashSpritesRenderer[i].color = new Color(1, 1, 1, 1);
+            DataToLoad.dashSpritesRenderer[i].color = new Color(1, 1, 1, 1);
 
-            DataToLoad.instance.dashObjects[i].transform.position = transform.position;
-            DataToLoad.instance.dashSpritesRenderer[i].sprite = playerSR.sprite;
-            DataToLoad.instance.dashSpritesRenderer[i].flipX = Player.moveDirectionX < 0;
+            DataToLoad.dashObjects[i].transform.position = transform.position;
+            DataToLoad.dashSpritesRenderer[i].sprite = playerSR.sprite;
+            DataToLoad.dashSpritesRenderer[i].flipX = Player.moveDirectionX < 0;
 
-            dashObjectsToFade.Add(DataToLoad.instance.dashSpritesRenderer[i]);
+            dashObjectsToFade.Add(DataToLoad.dashSpritesRenderer[i]);
             yield return new WaitForSeconds(0.03f);
         }
 

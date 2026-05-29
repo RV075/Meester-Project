@@ -7,6 +7,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float moveSpeed = 5;
+    [SerializeField] private float jumpForce = 5;
 
     public static int maxJumpCount = 1;
     private int jumpCount = 0;
@@ -31,12 +32,11 @@ public class Player : MonoBehaviour, IDamageable
         {
             GetComponent<SpriteRenderer>().enabled = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
-        {
-            PlayerGuns.instance.Toggle();
-        }
-
-            Flip();
+        //else if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    PlayerGuns.instance.Toggle();
+        //}
+        Flip();
     }
 
     public void TakeDamage(int damage)
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+            //GetComponent<SpriteRenderer>().enabled = false;
             //Destroy(gameObject);
         }
     }
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour, IDamageable
         if (jumpCount <= 0) return;
 
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         jumpCount--;
     }
 
