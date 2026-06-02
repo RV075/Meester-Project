@@ -7,7 +7,9 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float moveSpeed = 5;
-    [SerializeField] private float jumpForce = 5;
+    [SerializeField] private float minJumpForce = 5;
+    [SerializeField] private float maxJumpForce = 7.5f;
+    private float jumpForce = 5;
 
     public static int maxJumpCount = 1;
     private int jumpCount = 0;
@@ -24,7 +26,11 @@ public class Player : MonoBehaviour, IDamageable
         moveDirectionX = Input.GetAxis("Horizontal");
         moveDirectionY = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
+        {
+            ChargeJump();
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
         {
             Jump();
         }
@@ -47,9 +53,18 @@ public class Player : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            //GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+            health = 100;
             //Destroy(gameObject);
         }
+    }
+
+    private void ChargeJump()
+    {
+        if (jumpCount < maxJumpCount) return;
+
+        jumpForce += 1.5f * Time.deltaTime;
+        jumpForce = Mathf.Clamp(jumpForce, minJumpForce, maxJumpForce);
     }
 
     private void Jump()

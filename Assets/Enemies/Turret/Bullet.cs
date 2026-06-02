@@ -23,12 +23,13 @@ public class Bullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(999999);
         }
-        else
-        {
-            if (!DataToLoad.bulletObjects.Contains(gameObject))
-                DataToLoad.bulletObjects.Add(gameObject);
-            gameObject.SetActive(false);
-        }
+        else if (collision.gameObject.CompareTag("Player") && Player.isInvisible) return;
+
+
+
+        if (!DataToLoad.bulletObjects.Contains(gameObject))
+            DataToLoad.bulletObjects.Add(gameObject);
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()

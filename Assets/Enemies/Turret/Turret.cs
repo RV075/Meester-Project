@@ -13,16 +13,18 @@ public class Turret : MonoBehaviour, IDamageable
 
     [Header("Lasers")]
     private GameObject target;
-    public List<LineRenderer> laserLR;
+    [SerializeField] private List<LineRenderer> laserLR;
 
     [Header("Materials")]
-    public Material redMat;
-    public Material greenMat;
+    [SerializeField] private Material redMat;
+    [SerializeField] private Material greenMat;
 
     [Header("Shooting")]
-    public GameObject barrel;
-    public GameObject bulletPrefab;
-    public float shootTimer = 1f;
+    [SerializeField] private GameObject barrel;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float shootCooldown = 1f;
+    [SerializeField] private float shootTimer = 1f;
+    [SerializeField] private float distance = 10;
 
     void Update()
     {
@@ -31,6 +33,21 @@ public class Turret : MonoBehaviour, IDamageable
         LoseInterest();
         CheckSurrounding();
         Shoot();
+        LosePlayer();
+    }
+
+    private void LosePlayer()
+    {
+        if (target == null) return;
+
+        float dist = Vector2.Distance(transform.position, target.transform.position);
+
+        if (dist >= distance)
+        {
+            target = null;
+            interestTimer = 0;
+            pauzeTimer = 1;
+        }
     }
 
     public void TakeDamage(int damage)
@@ -61,14 +78,17 @@ public class Turret : MonoBehaviour, IDamageable
                 Instantiate(bulletPrefab, barrel.transform.position, transform.rotation);
             }
         }
-        Debug.Log(DataToLoad.bulletObjects.Count);
-        shootTimer = 1f;
+
+        shootCooldown -= 0.1f;
+        shootCooldown = Mathf.Clamp(shootCooldown, 0.15f, 1f);
+        shootTimer = shootCooldown;
     }
 
     private void Idle()
     {
         if (target != null || interestTimer > 0) return;
 
+        shootTimer = shootCooldown = 1f;
         pauzeTimer -= Time.deltaTime;
         if (pauzeTimer <= 0)
         {
@@ -101,8 +121,8 @@ public class Turret : MonoBehaviour, IDamageable
         if (target == null) return;
 
         Vector2 dir = target.transform.position - transform.position;
-        float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, targetAngle), 100 * Time.deltaTime);
+        angle = Mathf.Clamp(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90, -75, 75);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle), 100 * Time.deltaTime);
     }
 
     private void LoseInterest()
@@ -122,7 +142,6 @@ public class Turret : MonoBehaviour, IDamageable
     {
         Vector2 origin = transform.position;
         Vector2 dir = -transform.up;
-        float distance = 10f;
 
         laserLR[0].SetPosition(0, origin);
         //laserLR[1].SetPosition(0, origin);
@@ -134,7 +153,7 @@ public class Turret : MonoBehaviour, IDamageable
 
         bool detected1 = Laser(middleHit, laserLR[0], origin, dir, distance, false, true);
         bool detected2 = Laser(leftHit, laserLR[1], origin, Quaternion.Euler(0, 0, 7.5f) * dir, distance, detected1, false);
-        Laser(rightHit, laserLR[2], origin, Quaternion.Euler(0, 0, -7.5f) * dir, distance, detected1 || detected2, false);
+        bool detected3 = Laser(rightHit, laserLR[2], origin, Quaternion.Euler(0, 0, -7.5f) * dir, distance, detected1 || detected2, false);
     }
 
     public bool Laser(RaycastHit2D hit, LineRenderer laserLR, Vector2 origin, Vector2 dir, float distance, bool detected, bool debug)

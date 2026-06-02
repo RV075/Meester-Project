@@ -177,7 +177,8 @@ MonoBehaviour:
   health: 1
   rb: {fileID: 5534306212881693094}
   moveSpeed: 5
-  jumpForce: 5
+  minJumpForce: 5
+  maxJumpForce: 7.5
 --- !u!114 &2916165081662265109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6312904553281185526
 Transform:
   m_ObjectHideFlags: 0
