@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float moveSpeed = 5;
-    private readonly float jumpForce = 5;
+    private readonly float jumpForce = 7.5f;
 
     public static int maxJumpCount = 1;
     private int jumpCount = 0;
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour, IDamageable
         moveDirectionX = Input.GetAxis("Horizontal");
         moveDirectionY = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
