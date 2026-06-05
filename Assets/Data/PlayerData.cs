@@ -30,12 +30,14 @@ public class PlayerData : MonoBehaviour
         conn.CreateTable<PlayerAbillities>();
 
         LoadPlayerData();
+
+        conn.Execute("DELETE FROM PlayerGameData WHERE FileName = ?", "New Player");
+        conn.Execute("DELETE FROM PlayerAbillities WHERE Id NOT IN (SELECT Id FROM PlayerGameData)");
+
     }
 
     public void UpdatePlayerData(string level, int checkPoint)
     {
-        if (data.gameData.FileName == "New Player") return;
-
         data.gameData.Level = level;
         data.gameData.CheckPoint = checkPoint;
         conn.InsertOrReplace(data.gameData);
@@ -43,8 +45,6 @@ public class PlayerData : MonoBehaviour
 
     public void UpdatePlayerAbillities(string abilityName)
     {
-        if (data.gameData.FileName == "New Player") return;
-
         data.abillities.CurrentAbillitie = abilityName;
         conn.InsertOrReplace(data.abillities);
 
@@ -86,6 +86,7 @@ public class PlayerData : MonoBehaviour
     public void DeleteAllPlayers() // Gebruik deze functie alleen voor testdoeleinden, anders worden alle spelers verwijderd
     {
         conn.Execute("DELETE FROM PlayerGameData");
+        conn.Execute("DELETE FROM PlayerAbillities");
     }
 
     public void CreateNewPlayer(string fileName)

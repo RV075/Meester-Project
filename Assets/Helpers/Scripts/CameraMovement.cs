@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static CameraMovement instance;
+
+    [SerializeField] private float trackSpeed = 5f;
+
+    private float originZ;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
-        
+        originZ = transform.position.z;
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator TargetObject(Transform target)
     {
-        
+        while (true)
+        {
+            if (target != null)
+            {
+                Vector3 targetPosition = new(target.position.x, target.position.y, originZ);
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * trackSpeed);
+            }
+            yield return null;
+        }
     }
 }

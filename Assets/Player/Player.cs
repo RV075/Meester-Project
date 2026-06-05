@@ -5,7 +5,7 @@ public class Player : MonoBehaviour, IDamageable
 {
     public int health = 1;
 
-    [SerializeField] private Rigidbody2D rb;
+    public Rigidbody2D rb;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private float moveSpeed = 5;
     private readonly float jumpForce = 7.5f;
