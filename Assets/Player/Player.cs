@@ -64,7 +64,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (!canMove) return;
 
-        rb.velocity = new Vector2(moveDirectionX * moveSpeed, rb.velocity.y);
+        rb.MovePosition(rb.position + new Vector2(moveDirectionX * moveSpeed, 0) * Time.fixedDeltaTime);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
