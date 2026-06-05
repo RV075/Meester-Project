@@ -9,7 +9,7 @@ public class Hazard_onTouch : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<IDamageable>()?.TakeDamage(999999);
+            collision.GetComponent<IDamageable>()?.TakeDamage(999999, true);
             
         }
     }

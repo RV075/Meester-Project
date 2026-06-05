@@ -32,9 +32,10 @@ public class Player : MonoBehaviour, IDamageable
         Flip();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool ignoreInvisibility)
     {
-        if (isInvisible) return;
+        if (!ignoreInvisibility)
+            if (isInvisible) return;
         
         health -= damage;
 

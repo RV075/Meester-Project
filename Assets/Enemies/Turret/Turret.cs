@@ -51,7 +51,7 @@ public class Turret : MonoBehaviour, IDamageable
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, bool ignoreInvisibility)
     {
         health -= damage;
         if (health <= 0)

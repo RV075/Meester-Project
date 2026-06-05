@@ -19,7 +19,7 @@ public class PlayerBullets : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(25);
+            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(25, false);
         }
 
         if (!DataToLoad.playerLaserBulletObjects.Contains(gameObject))

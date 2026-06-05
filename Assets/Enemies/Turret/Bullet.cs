@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player") && !Player.isInvisible)
         {
-            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(999999);
+            collision.gameObject.GetComponent<IDamageable>()?.TakeDamage(50, false);
         }
         else if (collision.gameObject.CompareTag("Player") && Player.isInvisible) return;
 
