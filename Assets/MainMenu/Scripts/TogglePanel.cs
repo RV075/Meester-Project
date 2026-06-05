@@ -21,5 +21,7 @@ public class TogglePanel : MonoBehaviour
 
         if (toTurnOn != null)
             toTurnOn.SetActive(true);
+
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 }

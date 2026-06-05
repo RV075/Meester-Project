@@ -54,7 +54,7 @@ public class Dash : MonoBehaviour
 
             DataToLoad.dashObjects[i].transform.position = transform.position;
             DataToLoad.dashSpritesRenderer[i].sprite = playerSR.sprite;
-            DataToLoad.dashSpritesRenderer[i].flipX = Player.moveDirectionX < 0;
+            DataToLoad.dashSpritesRenderer[i].flipX = playerSR.flipX;
 
             dashObjectsToFade.Add(DataToLoad.dashSpritesRenderer[i]);
             yield return new WaitForSeconds(0.03f);

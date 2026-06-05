@@ -19,7 +19,9 @@ public class NewGame : MonoBehaviour
 
     private void CreateNewGame()
     {
-        PlayerData.Instance.CreateNewPlayer(inputField.text);
+        if (inputField.text.Length == 0) return;
+
+        PlayerData.instance.CreateNewPlayer(inputField.text);
         SceneLoader.LoadScene("Lab");
     }
 }

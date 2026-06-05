@@ -10,4 +10,12 @@ public class AddAbility : MonoBehaviour
             DataToLoad.player.AddComponent(abilityName);
         }
     }
+
+    public static void Remove(Type abilityName)
+    {
+        if (DataToLoad.player.GetComponent(abilityName) != null)
+        {
+            Destroy(DataToLoad.player.GetComponent(abilityName));
+        }
+    }
 }

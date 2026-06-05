@@ -15,6 +15,9 @@ public class StartGame : MonoBehaviour
 
     private void StartTheGame()
     {
-        SceneLoader.LoadScene(PlayerData.data.Level);
+        if (PlayerIDTransfer.playerID == null) return;
+
+        PlayerData.instance.LoadPlayerData();
+        SceneLoader.LoadScene(PlayerData.data.gameData.Level);
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour, IDamageable
 {
+    // ADD: zodra de speler niet gehit wordt door de lasers, dan onthouden we voor paar seconden dat we de speler hebben gezien, zodat de turret niet meteen terug gaat naar idle mode. (interestTimer)
     [Header("Stats")]
     public int health = 100;
 
@@ -153,7 +154,7 @@ public class Turret : MonoBehaviour, IDamageable
 
         bool detected1 = Laser(middleHit, laserLR[0], origin, dir, distance, false, true);
         bool detected2 = Laser(leftHit, laserLR[1], origin, Quaternion.Euler(0, 0, 7.5f) * dir, distance, detected1, false);
-        bool detected3 = Laser(rightHit, laserLR[2], origin, Quaternion.Euler(0, 0, -7.5f) * dir, distance, detected1 || detected2, false);
+        Laser(rightHit, laserLR[2], origin, Quaternion.Euler(0, 0, -7.5f) * dir, distance, detected1 || detected2, false);
     }
 
     public bool Laser(RaycastHit2D hit, LineRenderer laserLR, Vector2 origin, Vector2 dir, float distance, bool detected, bool debug)

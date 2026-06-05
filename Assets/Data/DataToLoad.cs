@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataToLoad : MonoBehaviour
 {
@@ -23,6 +24,24 @@ public class DataToLoad : MonoBehaviour
             dashObject.transform.position = new Vector2(1000, 1000);
             dashObjects.Add(dashObject);
             dashSpritesRenderer.Add(dashObject.AddComponent<SpriteRenderer>());
+        }
+    }
+
+    private void Start()
+    {
+        SpawnPlayer();
+    }
+
+    public static void SpawnPlayer()
+    {
+        if (Checkpoint.checkpoints.Count == 0) Debug.LogWarning("No checkpoints in scene! Add atleast 1");
+        foreach (Checkpoint checkpoint in Checkpoint.checkpoints)
+        {
+            if (checkpoint.checkpointID == PlayerData.data.gameData.CheckPoint)
+            {
+                player.transform.position = checkpoint.transform.position;
+                break;
+            }
         }
     }
 }

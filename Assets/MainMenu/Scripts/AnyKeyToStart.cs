@@ -11,7 +11,15 @@ public class AnyKeyToStart : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            SceneLoader.ToggleObject(toTurnOff, toTurnOn);
+            ToggleObject(toTurnOff, toTurnOn);
         }
+    }
+    private void ToggleObject(GameObject toTurnOff, GameObject toTurnOn)
+    {
+        if (toTurnOff != null)
+            toTurnOff.SetActive(false);
+
+        if (toTurnOn != null)
+            toTurnOn.SetActive(true);
     }
 }

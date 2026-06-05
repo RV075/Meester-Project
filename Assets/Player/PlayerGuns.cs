@@ -4,21 +4,29 @@ public class PlayerGuns : MonoBehaviour
 {
     public static PlayerGuns instance;
     public GameObject crossHair;
-
     public GameObject bulletPrefab;
 
-    private bool isActive = false;
-
-    public float speed = 5f;
+    [SerializeField] private float fireRate = 0.5f;
+    private float cooldown = 0;
     private void Awake()
     {
         instance = this;
-        crossHair.SetActive(false);
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 
 
     void Update()
+    {
+        cooldown -= Time.deltaTime;
+
+        if (cooldown <= 0)
+        {
+            Shoot();
+            cooldown = fireRate;
+        }
+    }
+
+    private void Shoot()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         crossHair.transform.position = new Vector3(mousePos.x, mousePos.y, 0f);
@@ -41,13 +49,5 @@ public class PlayerGuns : MonoBehaviour
                 Instantiate(bulletPrefab, transform.position + transform.right, Quaternion.Euler(0, 0, angle + 90));
             }
         }
-    }
-
-    public void Toggle()
-    {
-        isActive = !isActive;
-
-        gameObject.SetActive(isActive);
-        crossHair.SetActive(isActive);
     }
 }

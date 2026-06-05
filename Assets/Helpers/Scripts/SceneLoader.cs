@@ -9,13 +9,4 @@ public class SceneLoader : MonoBehaviour
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
-
-    public static void ToggleObject(GameObject toTurnOff, GameObject toTurnOn)
-    {
-        if (toTurnOff != null)
-            toTurnOff.SetActive(false);
-
-        if (toTurnOn != null)
-            toTurnOn.SetActive(true);
-    }
 }

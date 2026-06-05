@@ -6,6 +6,7 @@ public class Player : MonoBehaviour, IDamageable
     public int health = 1;
 
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer sr;
     [SerializeField] private float moveSpeed = 5;
     private readonly float jumpForce = 7.5f;
 
@@ -28,14 +29,6 @@ public class Player : MonoBehaviour, IDamageable
         {
             Jump();
         }
-        else if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            GetComponent<SpriteRenderer>().enabled = true;
-        }
-        //else if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    PlayerGuns.instance.Toggle();
-        //}
         Flip();
     }
 
@@ -47,9 +40,7 @@ public class Player : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
-            health = 100;
-            //Destroy(gameObject);
+            DataToLoad.SpawnPlayer();
         }
     }
     private void Jump()
@@ -64,9 +55,9 @@ public class Player : MonoBehaviour, IDamageable
     private void Flip()
     {
         if (moveDirectionX > 0)
-            transform.localScale = new Vector3(1, 1, 1);
+            sr.flipX = false;
         else if (moveDirectionX < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
+            sr.flipX = true;
     }
 
     private void FixedUpdate()

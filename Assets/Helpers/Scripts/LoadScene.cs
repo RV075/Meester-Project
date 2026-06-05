@@ -10,6 +10,7 @@ public class LoadScene : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            PlayerData.instance.UpdatePlayerData(sceneName, 0);
             SceneLoader.LoadScene(sceneName);
         }
     }
