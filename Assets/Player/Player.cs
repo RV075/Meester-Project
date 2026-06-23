@@ -18,6 +18,15 @@ public class Player : MonoBehaviour, IDamageable
 
     public static bool canMove = true;
     public static bool isInvisible = false;
+
+    void Start()
+    {
+        moveSpeed += PlayerPrefs.GetFloat("SpeedBoost", 0f);
+        float jumpBoost = PlayerPrefs.GetFloat("JumpBoost", 0f);
+        if (jumpBoost > 0)
+            rb.gravityScale -= jumpBoost;
+    }
+
     void Update()
     {
         if (!canMove) return;
@@ -26,9 +35,8 @@ public class Player : MonoBehaviour, IDamageable
         moveDirectionY = Input.GetAxis("Vertical");
 
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             Jump();
-        }
+
         Flip();
     }
 
@@ -36,14 +44,13 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (!ignoreInvisibility)
             if (isInvisible) return;
-        
+
         health -= damage;
 
         if (health <= 0)
-        {
             DataToLoad.SpawnPlayer();
-        }
     }
+
     private void Jump()
     {
         if (jumpCount <= 0) return;
@@ -79,5 +86,4 @@ public class Player : MonoBehaviour, IDamageable
             }
         }
     }
-
 }
