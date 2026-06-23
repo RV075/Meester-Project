@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Dash : MonoBehaviour
 {
@@ -11,13 +10,19 @@ public class Dash : MonoBehaviour
 
     private readonly List<SpriteRenderer> dashObjectsToFade = new();
 
+
+    private float DashBoost =>
+        UpgradeManager.Instance != null ? UpgradeManager.Instance.dashMultiplier : 1f;
+
     private void Start()
     {
         playerSR = GetComponent<SpriteRenderer>();
         playerRB = GetComponent<Rigidbody2D>();
     }
+
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             dashCoroutine ??= StartCoroutine(DashCoroutine());
@@ -40,13 +45,25 @@ public class Dash : MonoBehaviour
             }
         }
     }
+
+    public void DashButton()
+    {
+        if (dashCoroutine == null)
+            dashCoroutine = StartCoroutine(DashCoroutine());
+    }
+
     private IEnumerator DashCoroutine()
     {
         if (Player.moveDirectionX == 0 && Player.moveDirectionY == 0) yield break;
 
-        playerRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * 17.5f, Input.GetAxisRaw("Vertical") * 7.5f);
+        playerRB.velocity = new Vector2(
+            Input.GetAxisRaw("Horizontal") * 17.5f * DashBoost,
+            Input.GetAxisRaw("Vertical") * 7.5f * DashBoost
+        );
+
         playerRB.gravityScale = 0;
-        Player.canMove = false; Player.isInvisible = true;
+        Player.canMove = false;
+        Player.isInvisible = true;
 
         for (int i = 0; i < 10; i++)
         {
@@ -60,8 +77,10 @@ public class Dash : MonoBehaviour
             yield return new WaitForSeconds(0.03f);
         }
 
-        playerRB.gravityScale = 1; playerRB.velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y / 2);
-        Player.canMove = true; Player.isInvisible = false;
+        playerRB.gravityScale = 1;
+        playerRB.velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y / 2);
+        Player.canMove = true;
+        Player.isInvisible = false;
         dashCoroutine = null;
     }
 }
