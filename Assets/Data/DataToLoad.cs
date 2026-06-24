@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DataToLoad : MonoBehaviour
 {
@@ -9,13 +7,18 @@ public class DataToLoad : MonoBehaviour
     public static List<SpriteRenderer> dashSpritesRenderer = new();
 
     public static List<GameObject> playerLaserBulletObjects = new();
-    public static List<GameObject> playerAutoTurretBulletObjects = new();
     public static List<GameObject> bulletObjects = new();
     public static List<GameObject> rocketObjects = new();
 
     public static GameObject player;
     private void Awake()
     {
+        dashObjects.Clear();
+        dashSpritesRenderer.Clear();
+        playerLaserBulletObjects.Clear();
+        bulletObjects.Clear();
+        rocketObjects.Clear();
+
         player = FindObjectOfType<Player>().gameObject;
 
         for (int i = 0; i < 10; i++)
@@ -34,12 +37,17 @@ public class DataToLoad : MonoBehaviour
 
     public static void SpawnPlayer()
     {
-        if (Checkpoint.checkpoints.Count == 0) Debug.LogWarning("No checkpoints in scene! Add atleast 1");
+        if (Checkpoint.checkpoints.Count == 0)
+        {
+            Debug.LogWarning("No checkpoints in scene! Add atleast 1");
+            return;
+        }
         foreach (Checkpoint checkpoint in Checkpoint.checkpoints)
         {
             if (checkpoint.checkpointID == PlayerData.data.gameData.CheckPoint)
             {
-                player.transform.position = checkpoint.transform.position;
+                if (checkpoint != null)
+                    player.transform.position = checkpoint.transform.position;
                 break;
             }
         }

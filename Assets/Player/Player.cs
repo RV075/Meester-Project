@@ -1,12 +1,16 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IDamageable
 {
-    public int health = 1;
+    [SerializeField] private int maxHealth = 200;
+    private int health;
 
     public Rigidbody2D rb;
     [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private Image healthBar;
     [SerializeField] private float moveSpeed = 5;
     private readonly float jumpForce = 7.5f;
 
@@ -18,9 +22,17 @@ public class Player : MonoBehaviour, IDamageable
 
     public static bool canMove = true;
     public static bool isInvisible = false;
+
+    void Start()
+    {
+        canMove = true;
+        isInvisible = false;
+        health = maxHealth;
+    }
     void Update()
     {
-        if (!canMove) return;
+        if (!canMove)
+            return;
 
         moveDirectionX = Input.GetAxis("Horizontal");
         moveDirectionY = Input.GetAxis("Vertical");
@@ -36,12 +48,15 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (!ignoreInvisibility)
             if (isInvisible) return;
-        
+
         health -= damage;
+
+        if (healthBar != null)
+            healthBar.fillAmount = Mathf.Clamp01((float)health / (float)maxHealth);
 
         if (health <= 0)
         {
-            DataToLoad.SpawnPlayer();
+            SceneLoader.LoadScene(PlayerData.data.gameData.Level);
         }
     }
     private void Jump()
@@ -63,7 +78,8 @@ public class Player : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        if (!canMove) return;
+        if (!canMove)
+            return;
 
         rb.velocity = new Vector2(moveDirectionX * moveSpeed, rb.velocity.y);
     }
@@ -79,5 +95,4 @@ public class Player : MonoBehaviour, IDamageable
             }
         }
     }
-
 }

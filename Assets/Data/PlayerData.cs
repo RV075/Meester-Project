@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Unity.VisualScripting.Dependencies.Sqlite;
+using SQLite4Unity3d;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

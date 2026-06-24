@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ff759811cc8fbb145b0c9d93b823f003, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -287,9 +287,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 448269bd103f19749abc372eb0a9c593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crossHair: {fileID: 0}
   bulletPrefab: {fileID: 3965240328494873220, guid: 6b355bdbe52de574a98490498a841535, type: 3}
-  fireRate: 0.5
+  cursor: {fileID: 2800000, guid: 77f065b483ea3204fadd84b1b44a6867, type: 3}
+  fireRate: 0.15
 --- !u!1 &3198730777497652662
 GameObject:
   m_ObjectHideFlags: 0

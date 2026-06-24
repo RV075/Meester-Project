@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerBullets : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -14,6 +15,9 @@ public class PlayerBullets : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.CompareTag("ignoreTrigger")) return;
+        else if (collision.gameObject.name.Contains("PlayerBullet")) return;
+
         if (collision.gameObject.CompareTag("Player"))
             return;
 
@@ -23,7 +27,7 @@ public class PlayerBullets : MonoBehaviour
         }
 
         if (!DataToLoad.playerLaserBulletObjects.Contains(gameObject))
-            DataToLoad.playerLaserBulletObjects.Add(gameObject);
+        DataToLoad.playerLaserBulletObjects.Add(gameObject);
         gameObject.SetActive(false);
     }
     private void OnEnable()

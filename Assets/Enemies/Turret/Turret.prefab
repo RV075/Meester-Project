@@ -725,8 +725,10 @@ MonoBehaviour:
   redMat: {fileID: 2100000, guid: eb7e68d787669174f8db521cd249a699, type: 2}
   greenMat: {fileID: 2100000, guid: 2432e279e6cddea449039c9201105b1a, type: 2}
   barrel: {fileID: 1925813134793958722}
-  bulletPrefab: {fileID: 3965240328494873220, guid: 08da62f8c901ea34bb0686215b7630ec, type: 3}
+  bulletPrefab: {fileID: 3965240328494873220, guid: 668c0a6e75ba5184687298a84c4746e5, type: 3}
+  shootCooldown: 1
   shootTimer: 1
+  distance: 10
 --- !u!58 &5256791945958096188
 CircleCollider2D:
   m_ObjectHideFlags: 0

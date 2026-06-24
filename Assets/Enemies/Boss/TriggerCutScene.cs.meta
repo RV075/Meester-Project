@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e831afc370b9ffe439f3f93b67cdb0bd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - doorLeft: {instanceID: 0}
+  - doorRight: {instanceID: 0}
+  - doorUp: {instanceID: 0}
+  - LookTarget: {instanceID: 0}
+  - gun: {instanceID: 0}
+  - bossUI: {instanceID: 0}
+  - boss: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

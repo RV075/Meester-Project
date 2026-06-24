@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Dash : MonoBehaviour
 {
@@ -18,8 +17,12 @@ public class Dash : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        bool pressedAKey = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S);
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Player.canMove && pressedAKey)
         {
+            if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) return;
+            else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S)) return;
+
             dashCoroutine ??= StartCoroutine(DashCoroutine());
         }
 
@@ -44,14 +47,13 @@ public class Dash : MonoBehaviour
     {
         if (Player.moveDirectionX == 0 && Player.moveDirectionY == 0) yield break;
 
-        playerRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * 17.5f, Input.GetAxisRaw("Vertical") * 7.5f);
-        playerRB.gravityScale = 0;
-        Player.canMove = false; Player.isInvisible = true;
+        Change();
 
         for (int i = 0; i < 10; i++)
         {
-            DataToLoad.dashSpritesRenderer[i].color = new Color(1, 1, 1, 1);
+            if (DataToLoad.dashSpritesRenderer[i] == null) continue;
 
+            DataToLoad.dashSpritesRenderer[i].color = new Color(1, 1, 1, 1);
             DataToLoad.dashObjects[i].transform.position = transform.position;
             DataToLoad.dashSpritesRenderer[i].sprite = playerSR.sprite;
             DataToLoad.dashSpritesRenderer[i].flipX = playerSR.flipX;
@@ -60,8 +62,29 @@ public class Dash : MonoBehaviour
             yield return new WaitForSeconds(0.03f);
         }
 
+        Reset_(true);
+    }
+
+    public void CancelDash()
+    {
+        if (dashCoroutine != null)
+        {
+            StopCoroutine(dashCoroutine);
+            Reset_(false);
+        }
+    }
+
+    private void Change()
+    {
+        playerRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * 17.5f, Input.GetAxisRaw("Vertical") * 7.5f);
+        playerRB.gravityScale = 0;
+        Player.canMove = false; Player.isInvisible = true;
+    }
+
+    private void Reset_(bool canMove)
+    {
         playerRB.gravityScale = 1; playerRB.velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y / 2);
-        Player.canMove = true; Player.isInvisible = false;
+        Player.canMove = canMove; Player.isInvisible = false;
         dashCoroutine = null;
     }
 }
