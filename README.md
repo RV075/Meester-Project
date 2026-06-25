@@ -1,27 +1,33 @@
-# Meester-Project
+# Meester-Project:
 
-https://discord.gg/2fucqeHH
+Deze branch is voor de shop
 
-Het word een 2d game
+---
+- Game engine = Unity
 
-Genre = Platformer/Single player
+- Genre = Platformer
 
-Story tot nu toe = Je bent een AI robot die in een lab wakker wordt je wilt er ontsnappen maar de beveileging houd je tegen je rent naar een machine en je bent in de toekomst de toekomst ziet er een beetje uit als fallout 
+- Formaat = 2D game
 
-Er zijn secrets voor achievements
+- Modus = Singleplayer
+---
+- Story = Je bent een AI robot die in een lab wakker wordt. Je wilt ontsnappen, maar de beveileging houdt je tegen. Je rent naar een machine als laatste hoop en gebruikt hem. Dit blijkt later een tijdsmachine te zijn. Je bent nu in de toekomst, een post-apocalyptische wereld die lijkt op fallout.
+---
+- Er zijn secrets voor achievements.
 
-er is een shop voor upgrades
+- Er is een shop voor upgrades.
 
-De Database slaat op hoe ver je bent en wat voor upgrades/abilities je hebt
+- De database slaat op bij welk level je bent en wat voor upgrades/abilities je hebt.
 
-We gaan de game met keyboard controls te maken dus wasd en spatie
+- Toetsenbord controls, bijvoorbeeld wasd en spatie.
 
-er gaan ook side quests zijn naast de main quest
+- Er zijn niet alleen main quests, maar ook side quests.
+  
+---
 
-We beginnen met weinig en we bouwen steeds meer zodat er niet veel tijd stress is dus we maken eerst 1 wereld en als die pas af is 1 week voor het af moet zijn dan maken de die ene wereld de enige
+We beginnen met weinig en we bouwen steeds meer zodat er niet veel tijdsdruk is. We maken eerst 1 level, als die pas 1 week voor de deadline af is, wordt dat de enige.
 
-De game engine wordt = Unity
-
+---
 
 # Rollen
 
