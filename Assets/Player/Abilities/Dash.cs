@@ -8,6 +8,8 @@ public class Dash : MonoBehaviour
     private SpriteRenderer playerSR;
     private Rigidbody2D playerRB;
 
+    public static int dashAmount = 0;
+
     private readonly List<SpriteRenderer> dashObjectsToFade = new();
 
     private void Start()
@@ -17,6 +19,8 @@ public class Dash : MonoBehaviour
     }
     void Update()
     {
+        if (dashAmount <= 0) return;
+
         bool pressedAKey = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S);
         if (Input.GetKeyDown(KeyCode.LeftShift) && Player.canMove && pressedAKey)
         {
@@ -85,6 +89,6 @@ public class Dash : MonoBehaviour
     {
         playerRB.gravityScale = 1; playerRB.velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y / 2);
         Player.canMove = canMove; Player.isInvisible = false;
-        dashCoroutine = null;
+        dashCoroutine = null; dashAmount -= 1;
     }
 }

@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lab.unity
     guid: ec491633eeef64e4685a165dd3e1d842
+  - enabled: 1
+    path: Assets/Scenes/Prehistory.unity
+    guid: daac0128f11151143b214763bae31da3
+  - enabled: 1
+    path: Assets/Scenes/Fallout.unity
+    guid: 8d1e717771990a947bb0052bf8c5bee3
   m_configObjects: {}
