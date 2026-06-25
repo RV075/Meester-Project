@@ -6,6 +6,7 @@ public class BossRockets : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private BoxCollider2D bc;
     [SerializeField] private SpriteRenderer childSR;
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float startSpeed = 1;
@@ -23,6 +24,8 @@ public class BossRockets : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
         if (sr == null)
             sr = GetComponent<SpriteRenderer>();
+        if (bc == null)
+            bc = GetComponent<BoxCollider2D>();
 
         currentSpeed = startSpeed;
         currentHomingStrenght = startHomingStrenght;
@@ -64,19 +67,28 @@ public class BossRockets : MonoBehaviour
             DataToLoad.rocketObjects.Remove(gameObject);
             Destroy(gameObject);
         }
+
+        Disable();
     }
 
     public void Disable()
     {
-        rb.velocity = Vector2.zero;
-        GetComponent<BoxCollider2D>().enabled = false;
         enabled = false;
+        sr.enabled = false;
     }
 
     public void Enable()
     {
         enabled = true;
         GetComponent<BoxCollider2D>().enabled = true;
+
+        currentSpeed = startSpeed;
+        currentHomingStrenght = startHomingStrenght;
+        rb.gravityScale = 1;
+        rb.velocity = -transform.up * startSpeed;
+        sr.enabled = false;
+        childSR.enabled = true;
+        bc.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -92,24 +104,13 @@ public class BossRockets : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Player") && Player.isInvisible) return;
 
-        gameObject.SetActive(false);
+        enabled = false;
         sr.enabled = true;
         childSR.enabled = false;
-        Invoke(nameof(ResetAfterExplode), 1);
-    }
-
-    private void OnEnable()
-    {
-        if (rb == null)
-            rb = GetComponent<Rigidbody2D>();
-        if (sr == null)
-            sr = GetComponent<SpriteRenderer>();
-
-        currentSpeed = startSpeed;
-        currentHomingStrenght = startHomingStrenght;
-        rb.velocity = -transform.up * startSpeed;
-        sr.enabled = false;
-        childSR.enabled = true;
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
+        bc.enabled = false;
+        Invoke(nameof(ResetAfterExplode), 0.5f);
     }
 
     public void DisableOnCall()

@@ -174,9 +174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7af414f07344943beb3b1ab8a79773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1
+  maxHealth: 200
   rb: {fileID: 5534306212881693094}
   sr: {fileID: 1860301049089034980}
+  healthBar: {fileID: 0}
   moveSpeed: 5
 --- !u!114 &2916165081662265109
 MonoBehaviour:
@@ -303,7 +304,7 @@ GameObject:
   - component: {fileID: 802843198725155342}
   m_Layer: 0
   m_Name: Pixel Perfect Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

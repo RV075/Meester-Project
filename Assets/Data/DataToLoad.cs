@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1000)]
 public class DataToLoad : MonoBehaviour
 {
     public static List<GameObject> dashObjects = new();
@@ -13,6 +14,7 @@ public class DataToLoad : MonoBehaviour
     public static GameObject player;
     private void Awake()
     {
+        Checkpoint.checkpoints.Clear();
         dashObjects.Clear();
         dashSpritesRenderer.Clear();
         playerLaserBulletObjects.Clear();
@@ -29,7 +31,6 @@ public class DataToLoad : MonoBehaviour
             dashSpritesRenderer.Add(dashObject.AddComponent<SpriteRenderer>());
         }
     }
-
     private void Start()
     {
         SpawnPlayer();
