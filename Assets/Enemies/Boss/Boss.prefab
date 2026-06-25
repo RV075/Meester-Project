@@ -826,6 +826,7 @@ MonoBehaviour:
   laserLR: {fileID: 6970501115621353888}
   laserRotatePart: {fileID: 5011380680206131081}
   laserBarrel: {fileID: 7898844187976264830}
+  musicClip: {fileID: 8300000, guid: 75a694d3844a7864998edf868238dcd1, type: 3}
   gunInterval: 7
 --- !u!1 &6829868992182127899
 GameObject:

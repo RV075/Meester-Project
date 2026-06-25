@@ -12,6 +12,8 @@ public class TriggerCutScene : MonoBehaviour
 
     [SerializeField] private GameObject gun;
     [SerializeField] private Boss boss;
+
+    [SerializeField] private AudioClip musicClip;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -26,6 +28,9 @@ public class TriggerCutScene : MonoBehaviour
 
     private IEnumerator Cutscene()
     {
+        if (MusicPLayer.instance != null)
+            MusicPLayer.instance.SwitchMusic(musicClip, 1);
+
         yield return new WaitForSeconds(2.5f);
         foreach (GameObject go in toDisable)
             go.SetActive(false);
