@@ -7,13 +7,11 @@ public class Checkpoint : MonoBehaviour
 {
     [Header("Checkpoint ID")]
     public int checkpointID;
-    private Vector2 spawn;
 
     public static List<Checkpoint> checkpoints = new();
 
     private void Awake()
     {
-        spawn = transform.position;
         checkpoints.Add(this);
     }
 

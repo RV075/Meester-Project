@@ -3,7 +3,6 @@ using UnityEngine;
 public class FocusCamera : MonoBehaviour
 {
     public static FocusCamera instance;
-    [SerializeField] private GameObject boss;
 
     private Camera cam;
     private void Awake()
