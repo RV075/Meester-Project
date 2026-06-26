@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class dash_pickups : MonoBehaviour
+public class Dash_pickups : MonoBehaviour
 {
-    private bool ableToDash = true;
+    [SerializeField] private int amount = 1;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!ableToDash) return;
-        Dash.dashAmount += 1;
-        ableToDash = false;
-        gameObject.SetActive(false);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Dash.dashAmount += amount;
+            gameObject.SetActive(false);
+        }
     }
-
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TriggerCutScene : MonoBehaviour
 {
-    [SerializeField] private List<Door> doors;
+    [SerializeField] private Door door;
     [SerializeField] private List<GameObject> lasers;
 
     [SerializeField] private GameObject LookTarget;
@@ -21,7 +21,8 @@ public class TriggerCutScene : MonoBehaviour
             Player.canMove = false;
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             collision.gameObject.TryGetComponent<Dash>(out var dash); dash.CancelDash();
-            foreach (Door door in doors) StartCoroutine(door.Close());
+            if (PlayerData.data.gameData.CheckPoint != 3)
+                StartCoroutine(door.Close());
             StartCoroutine(Cutscene());
         }
     }

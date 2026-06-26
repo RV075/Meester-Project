@@ -33,6 +33,7 @@ public class DataToLoad : MonoBehaviour
     }
     private void Start()
     {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         SpawnPlayer();
     }
 

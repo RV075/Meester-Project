@@ -9,6 +9,7 @@ public class Dash : MonoBehaviour
     private Rigidbody2D playerRB;
 
     public static int dashAmount = 0;
+    private float timer = 0;
 
     private readonly List<SpriteRenderer> dashObjectsToFade = new();
 
@@ -16,18 +17,20 @@ public class Dash : MonoBehaviour
     {
         playerSR = GetComponent<SpriteRenderer>();
         playerRB = GetComponent<Rigidbody2D>();
+        dashAmount = 0;
     }
     void Update()
     {
-        if (dashAmount <= 0) return;
+        timer += Time.deltaTime;
 
         bool pressedAKey = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S);
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Player.canMove && pressedAKey)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Player.canMove && pressedAKey && dashAmount > 0)
         {
             if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D)) return;
             else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S)) return;
 
-            dashCoroutine ??= StartCoroutine(DashCoroutine());
+            if (timer > 0.5f)
+                dashCoroutine ??= StartCoroutine(DashCoroutine());
         }
 
         foreach (var dashObject in dashObjectsToFade)
@@ -89,6 +92,7 @@ public class Dash : MonoBehaviour
     {
         playerRB.gravityScale = 1; playerRB.velocity = new Vector2(playerRB.velocity.x, playerRB.velocity.y / 2);
         Player.canMove = canMove; Player.isInvisible = false;
-        dashCoroutine = null; dashAmount -= 1;
+        dashAmount -= 1; timer = 0;
+        dashCoroutine = null;
     }
 }
