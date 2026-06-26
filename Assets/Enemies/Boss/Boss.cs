@@ -100,8 +100,10 @@ public partial class Boss : MonoBehaviour, IDamageable
             StopAllCoroutines();
             StartCoroutine(door.Open());
             ResetAndCLean();
+            StartCoroutine(ResetCamera());
         }
     }
+
     void Start()
     {
         health = maxHealth;
@@ -194,5 +196,12 @@ public partial class Boss : MonoBehaviour, IDamageable
         rocketBarrel.rotation = rocketStartRot;
         laserRotatePart.rotation = laserStartRot;
         laserLR.enabled = false;
+    }
+
+    IEnumerator ResetCamera()
+    {
+        yield return new WaitForSeconds(5);
+        Camera.main.transform.SetParent(DataToLoad.player.transform);
+        Camera.main.transform.position = new Vector3(DataToLoad.player.transform.position.x, DataToLoad.player.transform.position.y, -10);
     }
 }
